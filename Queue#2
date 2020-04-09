@@ -1,0 +1,153 @@
+#include <iostream>
+using namespace std;
+class myQueue{
+    static const int SIZE = 6;
+    int *Queue;
+    int first;
+    int last;
+
+    public:
+    myQueue();
+    void push( int num);
+    int front();
+    int back();
+    int size();
+    void out();
+    void pop();
+    bool Full();
+};
+
+myQueue::myQueue(){
+    Queue = new int [SIZE];
+    first = 0;
+    last = -1;
+}
+
+void myQueue::out() {
+  if (first == last){
+    cout<< "error & \n";
+
+  }
+  else if (first < last){
+    for (int i = first; i <= last; i++){
+        cout << Queue[i] << " ";
+    }
+
+  }
+  else if (first > last){
+    int i = first;
+    while (i != SIZE){
+        cout << Queue[i] << " ";
+        i++;
+    }
+    i = last;
+    for (int j = 0; j <= last; j++){
+        cout << Queue[j] << " ";
+    }
+  }
+}
+
+
+void myQueue:: push( int num ){
+
+    if((last + 1 == SIZE && first == 0)||(last + 1 == first && last!=-1) ){
+            cout << "Overflow \n";
+    }
+    else{
+        cout << "Inserting" <<" "<< num << endl;
+        last++;
+        if (last == SIZE) last = 0;
+        Queue[last] = num;
+    }
+
+
+}
+
+void myQueue::pop() {
+  if ( first == last ) {
+    cout << "Empty \n" <<endl ;
+  }
+  else{
+     first++;
+  if ( first == SIZE )
+    first = 0 ;
+  }
+}
+
+
+int myQueue::size() {
+  int s=0;
+  if (first < last){
+    for (int i = first; i <= last; i++){
+        s++;
+    }
+
+  }
+  else if (first > last){
+    int i = first;
+    while (i != SIZE){
+        s++;
+        i++;
+    }
+    i = last;
+    for (int j = 0; j <= last; j++){
+        s++;
+    }
+  }
+  return s;
+}
+int myQueue::back() {
+    return Queue[last];
+}
+
+int myQueue::front() {
+    return Queue[first];
+}
+
+int main() {
+  myQueue my_queue;
+  int i;
+  for (i = 0 ; i < 5 ; i++){
+     my_queue.push (i+1);
+  }
+
+  my_queue.out();
+
+  cout<<endl;
+
+  cout<<"+ New element: ";
+  cin>>i;
+  my_queue.push(i);
+
+  cout<<endl;
+
+  my_queue.out();
+
+  cout<<"Size :"<<endl;
+  cout<<my_queue.size();
+
+  cout<<endl <<"The last element :"<< endl;
+  cout<<my_queue.back();
+
+  cout<<endl<<"The first element :"<<endl;
+  cout<<my_queue.front();
+
+  cout<<endl <<"Delete the element";
+
+  my_queue.pop();
+  cout<<endl <<"My Queue :";
+  my_queue.out();
+
+  cout<<endl <<"+ New element: ";
+  my_queue.push(i);
+
+  my_queue.out();
+  cout<<endl;
+
+cout<<endl <<"+ New element: ";
+  my_queue.push(i);
+
+  my_queue.out();
+  cout<<endl;
+  return 0;
+}
