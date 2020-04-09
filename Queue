@@ -1,0 +1,28 @@
+#include <iostream>
+using namespace std;
+int main ()
+{
+  int n;
+  cin >> n;
+  int*q=new int[n];   //массив вместо <queue>
+  int start = 0, ends = 0; //начальный и конечный элемент
+  for (int i = 0; i < n; i++) 
+  { 
+	int a; 
+	cin >> a;  //заполнение
+    q[ends++] = a;  
+  }
+  cout << "First " << q[start] << endl;  
+
+  cout << "New first " << q[start + 1] << endl;  
+
+  cout << "Last " << q[ends - 1] << endl;
+   
+                                                         
+  if (ends != start) 
+	  cout << "Not empty" << endl;  
+  else
+	  cout << "Empty" << endl;
+  system("pause");  //для Visual Studio
+  return 0;
+}
