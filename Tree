@@ -1,0 +1,129 @@
+#include<iostream>
+struct Node 
+{
+public:
+	int index;
+	Node* left = NULL;
+	Node* right = NULL;
+
+	Node(int x) 
+	{
+		index = x;
+	}
+};
+struct BinaryTree 
+{
+
+private:
+	void destroy_node(Node* node) 
+	{
+		if (node) 
+		{
+			destroy_node(node->left);
+			destroy_node(node->right);
+			delete node;
+		}
+	}
+
+	void replace_child(Node* parent, Node* old_node, Node* new_node) 
+	{
+		if (parent == NULL) first = new_node;
+		else if (parent->left == old_node) parent->left = new_node;
+		else if (parent->right == old_node) parent->right = new_node;
+	}
+
+public:
+	Node* first;
+	BinaryTree() {
+		first = NULL;
+	}
+	~BinaryTree() 
+	{
+		destroy_node(first);
+	}
+	void add(int x) 
+	{
+		Node** now = &first;
+		while (*now)
+		{
+			Node& new_node = **now;
+
+			if (x < new_node.index)
+				now = &new_node.left;
+			else if (x > new_node.index)
+				now = &new_node.right;
+			else 
+				return;
+		}
+
+		*now = new Node(x);
+	}
+
+	Node* find(int x) {
+		Node* parent = first;
+
+		while (parent != NULL)
+		{
+			if (parent->index == x)
+			{
+				return parent;
+			}
+			else if (parent->index > x)
+			{
+				parent = parent->left;
+			}
+			else if (parent->index < x)
+			{
+				parent = parent->right;
+			}
+		}
+
+		return NULL;
+
+	}
+
+	void remove(int x) 
+	{
+		Node* parent = NULL;
+		Node* node = first;
+
+		while (true)
+		{
+			if (node == NULL) return;
+			if (x < node->index)
+			{
+				parent = node;
+				node = node->left;
+			} 
+			else if (x > node->index)
+			{
+				parent = node;
+				node = node->right;
+			}
+			else break;
+		}
+
+		Node* result = NULL;
+
+		if (node->left == NULL) result = node->right;
+		else if (node->right == NULL) result = node->left;
+		else 
+		{
+			Node* min_node_parent = node;
+			Node* min_node = node->right;
+
+			while (min_node->left != NULL)
+			{
+				min_node_parent = min_node;
+				min_node = min_node->left;
+			}
+
+			result = node;
+			node->index = min_node->index;
+			replace_child(min_node_parent, min_node, min_node->right);
+		}
+
+		replace_child(parent, node, result);
+	}
+
+};
