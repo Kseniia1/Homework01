@@ -1,7 +1,6 @@
 #include <iostream>
 using namespace std;
 class myQueue{
-    static const int SIZE = 6;
     int *Queue;
     int first;
     int last;
@@ -17,50 +16,31 @@ class myQueue{
     bool Full();
 };
 
-myQueue::myQueue(){
+myQueue::myQueue()
+{
     Queue = new int [SIZE];
     first = 0;
     last = -1;
 }
 
-void myQueue::out() {
-  if (first == last){
-    cout<< "error & \n";
-
-  }
-  else if (first < last){
-    for (int i = first; i <= last; i++){
-        cout << Queue[i] << " ";
-    }
-
-  }
-  else if (first > last){
-    int i = first;
-    while (i != SIZE){
-        cout << Queue[i] << " ";
-        i++;
-    }
-    i = last;
-    for (int j = 0; j <= last; j++){
-        cout << Queue[j] << " ";
-    }
-  }
+void myQueue::out() 
+{
+  for(int i=first; i<=last; i++)
+    cout << Queue[i] << " ";
 }
+void myQueue:: push( int num )
+{
 
-
-void myQueue:: push( int num ){
-
-    if((last + 1 == SIZE && first == 0)||(last + 1 == first && last!=-1) ){
-            cout << "Overflow \n";
-    }
-    else{
-        cout << "Inserting" <<" "<< num << endl;
-        last++;
-        if (last == SIZE) last = 0;
-        Queue[last] = num;
-    }
-
-
+    if(last + 1 == SIZE)
+       { SIZE++;
+  
+  void*realloc(void* Queue, int SIZE)
+  }
+  else 
+  {
+  last++;
+  Queue[last]=num;
+  }
 }
 
 void myQueue::pop() {
@@ -69,30 +49,14 @@ void myQueue::pop() {
   }
   else{
      first++;
-  if ( first == SIZE )
-    first = 0 ;
   }
 }
 
 
 int myQueue::size() {
   int s=0;
-  if (first < last){
-    for (int i = first; i <= last; i++){
+    for (int i = first; i <= last; i++)
         s++;
-    }
-
-  }
-  else if (first > last){
-    int i = first;
-    while (i != SIZE){
-        s++;
-        i++;
-    }
-    i = last;
-    for (int j = 0; j <= last; j++){
-        s++;
-    }
   }
   return s;
 }
