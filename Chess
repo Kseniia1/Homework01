@@ -1,0 +1,30 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+vector<vector<int>> dp;
+void update(int i, int j)
+{
+	dp[i][j] += dp[i-1][j-2] + dp[i-2][j-1];
+
+}
+int main ()
+{
+	int n, m;
+	cin >> n >> m;
+	n+=2;
+	m+=2;
+	dp.resize(n+1, vector <int> (m+1, 0));
+	dp[2][2]=1;
+	int i=2; int j=2;
+	while(i!=n-1 || j!=m-1)
+	{
+		int x=i, y=j;
+		while(x>=2 && y<m)
+			update(x--, y++);
+	i==n-1 ? j++: i++;
+	}
+	update(n-1, m-1);
+	cout << dp[n-1][m-1] << endl;
+	system("pause");
+	return 0;
+}
