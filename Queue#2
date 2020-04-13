@@ -4,6 +4,7 @@ class myQueue{
     int *Queue;
     int first;
     int last;
+    int get_size;
 
     public:
     myQueue();
@@ -39,6 +40,7 @@ void myQueue:: push( int num )
   else 
   {
   last++;
+  size++;
   Queue[last]=num;
   }
 }
@@ -49,16 +51,13 @@ void myQueue::pop() {
   }
   else{
      first++;
+     size--;
   }
 }
 
-
-int myQueue::size() {
-  int s=0;
-    for (int i = first; i <= last; i++)
-        s++;
-  }
-  return s;
+int myQueue::get_size() {
+  
+  return size;
 }
 int myQueue::back() {
     return Queue[last];
