@@ -15,6 +15,7 @@ class myQueue{
     void out();
     void pop();
     bool Full();
+    int get_size ();
 };
 
 myQueue::myQueue()
